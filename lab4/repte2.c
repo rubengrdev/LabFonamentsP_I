@@ -37,27 +37,31 @@ int main ()
     ini_llavor();
     num_aleat = aleatori_entre(10,50);
     fi =  false;
-
 	printf("Quants anys tinc? endevina l'edat de l'ordinador\n");
+    printf("\nRecorda que la meva edad és de 10 a 50 anys!\n");
     printf("%d\n", num_aleat);
     printf("Indica una edad:\n");
     scanf("%d", &intent_edad);
+
+    while(intent_edad < 10 | intent_edad > 50){
+          printf("Error, recorda que tens que ficar una edad entre 10 i 50 anys\n");
+            scanf("%d", &intent_edad);
+    }
+
     for(int i = 1; i < max_intents; i++){
-        if(intent_edad == num_aleat){
+        if(intent_edad == num_aleat && fi != true){
             fi = true;
             printf("\nHas encertat!");
         }
         if(fi != true){
-            if(intent_edad < num_aleat){
+            if(intent_edad > num_aleat){
                 printf("\nL'edad de l'ordinador és inferior!");
                 printf("\nIndica una edad:\n");
                 scanf("%d", &intent_edad);
-            }else if(intent_edad > num_aleat){
+            }else if(intent_edad < num_aleat){
                 printf("\nL'edad de l'ordinador és superior!");
                 printf("\nIndica una edad:\n");
                 scanf("%d", &intent_edad);
-            }else{
-                printf("\nHa passat algun error!");
             }
         }
     }
