@@ -30,26 +30,26 @@ int main ()
 {
     /**Inicialitzem les variables y constants**/
 	bool fi;
-    int num_aleat;
-    int intent_edad;
+    int num_aleat, cont, intent_edad;
     const int max_intents = 5;
     /**Inicialitzem els seeds**/
     ini_llavor();
     num_aleat = aleatori_entre(10,50);
     fi =  false;
+    cont = 1;
 	printf("Quants anys tinc? endevina l'edat de l'ordinador\n");
     printf("\nRecorda que la meva edad és de 10 a 50 anys!\n");
-    printf("%d\n", num_aleat);
     printf("Indica una edad:\n");
     scanf("%d", &intent_edad);
 
     while(intent_edad < 10 | intent_edad > 50){
           printf("Error, recorda que tens que ficar una edad entre 10 i 50 anys\n");
-            scanf("%d", &intent_edad);
+          printf("Indica una edad:\n");
+          scanf("%d", &intent_edad);
     }
 
-    for(int i = 1; i < max_intents; i++){
-        if(intent_edad == num_aleat && fi != true){
+  while( fi != true && cont < max_intents){
+        if(intent_edad == num_aleat){
             fi = true;
             printf("\nHas encertat!");
         }
@@ -64,6 +64,7 @@ int main ()
                 scanf("%d", &intent_edad);
             }
         }
+        cont++;
     }
     if(fi != true){
         printf("Se t'han acabat els intents, bona sort la pròxima vegada!");
