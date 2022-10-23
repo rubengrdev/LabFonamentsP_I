@@ -39,7 +39,7 @@ int main(){
             printf("\nNo es poden acceptar imports inferiors a 0€\n");
         }
     }
-        /*productes amb IVA del 21%*/
+    /*productes amb IVA del 21%*/
         /*calcul de el import dels productes comprats sense el IVA*/
         noIvaSet1 = (begudesSucreCost + begudesAlcoholCost);
 	    ivaSet1 = noIvaSet1 * 0.21;
@@ -70,6 +70,6 @@ int main(){
 	    printf("productes categoritzats amb el 4 per cent de IVA => begudes ensucrades i begudes alcohòliques\n");
 	    printf("subtotal (sense IVA): %.2f\n", totalNoIvaSuperReduit);
 	    printf("IVA: %.2f\n", totalIvaSuperReduit);
-        printf("\nEl cost total de la compra puja a: %.2f €\n", costCompra);   
+        printf("\nEl cost total de la compra puja a: %.2f €\n", costCompra);       
     return 0;
 }
