@@ -39,22 +39,22 @@ int main(){
         /*faig una ultima suma per comprovar que les dades no son iguals a 0, ja que 	de ser així no te sentit comprovar les setmanes següents*/
         sumaSet1 = noIvaSet1 + ivaSet1 + noIvaReduitSet1 + ivaReduitSet1 + noIvaSuperReduitSet1 + ivaSuperReduitSet1;
         if(sumaSet1 > 0){
-            totalNoIva = noIvaSet1 + (noIvaSet1 * 0,80) + (noIvaSet1 * 0,70) + (noIvaSet1 * 0,60);
-	        totalIva = ivaSet1 + (ivaSet1 * 0,80) + (ivaSet1 * 0,70) + (ivaSet1 * 0,60);
-	        totalNoIvaReduit = noIvaReduitSet1 + (noIvaReduitSet1 * 0,80) + (noIvaReduitSet1 * 0,70) + (noIvaReduitSet1 * 0,60);
-	        totalIvaReduit = ivaReduitSet1 + (ivaReduitSet1 * 0,80) + (ivaReduitSet1 * 0,70) + (ivaReduitSet1 * 0,60);
-	        totalNoIvaSuperReduit = noIvaSuperReduitSet1 + (noIvaSuperReduitSet1 * 0,80) + (noIvaSuperReduitSet1 * 0,70) + (noIvaSuperReduitSet1 * 0,60);
-	        totalIvaSuperReduit =  ivaSuperReduitSet1 + (ivaSuperReduitSet1 * 0,80) + (ivaSuperReduitSet1 * 0,70) + (ivaSuperReduitSet1 * 0,60);
+            totalNoIva = noIvaSet1 + (noIvaSet1 * 0.80) + (noIvaSet1 * 0.70) + (noIvaSet1 * 0.60);
+	        totalIva = ivaSet1 + (ivaSet1 * 0.80) + (ivaSet1 * 0.70) + (ivaSet1 * 0.60);
+	        totalNoIvaReduit = noIvaReduitSet1 + (noIvaReduitSet1 * 0.80) + (noIvaReduitSet1 * 0.70) + (noIvaReduitSet1 * 0.60);
+	        totalIvaReduit = ivaReduitSet1 + (ivaReduitSet1 * 0.80) + (ivaReduitSet1 * 0.70) + (ivaReduitSet1 * 0.60);
+	        totalNoIvaSuperReduit = noIvaSuperReduitSet1 + (noIvaSuperReduitSet1 * 0.80) + (noIvaSuperReduitSet1 * 0.70) + (noIvaSuperReduitSet1 * 0.60);
+	        totalIvaSuperReduit =  ivaSuperReduitSet1 + (ivaSuperReduitSet1 * 0.80) + (ivaSuperReduitSet1 * 0.70) + (ivaSuperReduitSet1 * 0.60);
             /*resultat del sumatori*/
             printf("\nproductes categoritzats amb el 21 per cent de IVA\n");
-	        printf("subtotal (sense IVA): %2f\n", totalNoIva);
-	        printf("IVA: %2f\n", totalIva);
+	        printf("subtotal (sense IVA): %.2f\n", totalNoIva);
+	        printf("IVA: %.2f\n", totalIva);
 	        printf("productes categoritzats amb el 10 per cent de IVA\n");
-	        printf("subtotal (sense IVA): %2f\n", totalNoIvaReduit);
-	        printf("IVA: %2f\n", totalIvaReduit);
+	        printf("subtotal (sense IVA): %.2f\n", totalNoIvaReduit);
+	        printf("IVA: %.2f\n", totalIvaReduit);
 	        printf("productes categoritzats amb el 4 per cent de IVA\n");
-	        printf("subtotal (sense IVA): %2f\n", totalNoIvaSuperReduit);
-	        printf("IVA: %2f\n", totalIvaSuperReduit);
+	        printf("subtotal (sense IVA): %.2f\n", totalNoIvaSuperReduit);
+	        printf("IVA: %.2f\n", totalIvaSuperReduit);
         }else{
             printf("No es pot calcular el cost de les altres setmanes si a la setmana 1 el gast ha sigut de 0€");
         }
