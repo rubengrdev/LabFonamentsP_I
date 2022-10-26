@@ -6,11 +6,11 @@ int main(){
     float fruitesVerduresCost, cerealsDerivatsCost, altresAlimentsCost, begudesSucreCost, begudesAlcoholCost, 
     aiguaCost, prodSanitarisCost, totalNoIva, totalIva, totalNoIvaReduit, totalIvaReduit, totalNoIvaSuperReduit, 
     totalIvaSuperReduit, noIvaSet1, ivaSet1, noIvaReduitSet1, ivaReduitSet1, noIvaSuperReduitSet1, ivaSuperReduitSet1, sumaSet1, costCompra;
-    bool correctData;
+    bool dadesCorrectes;
 
-    correctData = false;
+    dadesCorrectes = false;
     printf("Per calcular el cost semanal introdueix les dades que es et demanaran a continuació\n");
-    while (correctData != true)
+    while (dadesCorrectes != true)
     {
         printf("\nIntrodueix el consum en la primera setmana de fruites, verdures, horatalisses, llegums i tubercles\n");
         scanf("%f", &fruitesVerduresCost);
@@ -31,7 +31,7 @@ int main(){
             /*faig una ultima suma per comprovar que les dades no son iguals a 0, ja que de ser així no te sentit comprovar les setmanes següents*/
             sumaSet1 = fruitesVerduresCost + cerealsDerivatsCost + altresAlimentsCost + begudesSucreCost + begudesAlcoholCost + aiguaCost + prodSanitarisCost;
             if(sumaSet1 > 0){
-                correctData = true;
+                dadesCorrectes = true;
             }else{
                  printf("\nNo es pot calcular el cost de les altres setmanes si a la setmana 1 el gast ha sigut de 0€\n");
             }
