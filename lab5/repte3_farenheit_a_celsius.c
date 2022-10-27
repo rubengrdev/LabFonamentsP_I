@@ -5,7 +5,7 @@ int main(){
     FILE * save;
     float temp1, celsius;
     int contDefectuos = 0;
-    fit = fopen("temp4.txt","r");
+    fit = fopen("temp1.txt","r");
     save = fopen("save.txt", "w");
     if(fit == NULL || save == NULL){
         printf("No s'ha pogut obrir el fitxer");
