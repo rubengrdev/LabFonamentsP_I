@@ -3,40 +3,47 @@
 
 int main(){
     /*Pràctica 0 - Alumne: Rubén Gómez Rodríguez*/
+    const float importMaxim = 100000000.00;
     float fruitesVerduresCost, cerealsDerivatsCost, altresAlimentsCost, begudesSucreCost, begudesAlcoholCost, 
     aiguaCost, prodSanitarisCost, totalNoIva, totalIva, totalNoIvaReduit, totalIvaReduit, totalNoIvaSuperReduit, 
     totalIvaSuperReduit, noIvaSet1, ivaSet1, noIvaReduitSet1, ivaReduitSet1, noIvaSuperReduitSet1, ivaSuperReduitSet1, sumaSet1, costCompra;
-    bool dadesCorrectes;
-
-    dadesCorrectes = false;
+    bool dadesCorrectes = false;
     printf("Per calcular el cost semanal introdueix les dades que es et demanaran a continuació\n");
-    while (dadesCorrectes != true)
-    {
-        printf("\nIntrodueix el consum en la primera setmana de fruites, verdures, horatalisses, llegums i tubercles\n");
-        scanf("%f", &fruitesVerduresCost);
-        printf("Introdueix el consum en la primera setmana de cereals, ous, pa formatge i llet\n");
-        scanf("%f", &cerealsDerivatsCost);
-        printf("Introdueix el consum en la primera setmana de altres aliments\n");
-        scanf("%f", &altresAlimentsCost);
-        printf("Introdueix el consum en la primera setmana de begudes ensucrades\n");
-        scanf("%f", &begudesSucreCost);
-        printf("Introdueix el consum en la primera setmana de begudes alcohòliques\n");
-        scanf("%f", &begudesAlcoholCost);
-        printf("Introdueix el consum en la primera setmana d'aigua\n");
-        scanf("%f", &aiguaCost);
-        printf("Introdueix el consum en la primera setmana de productes sanitaris\n");
-        scanf("%f", &prodSanitarisCost);
-        /*en el cas de que les dades siguin correctes, no admetrá numeros negatius en el cost de un producte, aquestes dades següents fan referencia a lo que será la setmana 1*/
-        if(fruitesVerduresCost >= 0 & cerealsDerivatsCost >= 0 & altresAlimentsCost >= 0 & begudesSucreCost >= 0 & begudesAlcoholCost >= 0 & aiguaCost >= 0 & prodSanitarisCost >= 0){
-            /*faig una ultima suma per comprovar que les dades no son iguals a 0, ja que de ser així no te sentit comprovar les setmanes següents*/
-            sumaSet1 = fruitesVerduresCost + cerealsDerivatsCost + altresAlimentsCost + begudesSucreCost + begudesAlcoholCost + aiguaCost + prodSanitarisCost;
-            if(sumaSet1 > 0){
-                dadesCorrectes = true;
-            }else{
-                 printf("\nNo es pot calcular el cost de les altres setmanes si a la setmana 1 el gast ha sigut de 0€\n");
-            }
+    while (dadesCorrectes != true){
+        /*Fins a que no es compleixi la condició no deixará de preguntar la mateixa pregunta*/
+        do{
+            printf("\nIntrodueix el consum en la primera setmana de fruites, verdures, horatalisses, llegums i tubercles\n");
+            scanf("%f", &fruitesVerduresCost);
+        }while(fruitesVerduresCost < 0.00 || fruitesVerduresCost > importMaxim);
+        do{
+            printf("Introdueix el consum en la primera setmana de cereals, ous, pa formatge i llet\n");
+            scanf("%f", &cerealsDerivatsCost);
+        }while(cerealsDerivatsCost < 0 || cerealsDerivatsCost > importMaxim);
+        do{
+            printf("Introdueix el consum en la primera setmana de altres aliments\n");
+            scanf("%f", &altresAlimentsCost);
+        }while(altresAlimentsCost < 0 || altresAlimentsCost > importMaxim);
+        do{
+            printf("Introdueix el consum en la primera setmana de begudes ensucrades\n");
+            scanf("%f", &begudesSucreCost);
+        }while(begudesSucreCost < 0 || begudesSucreCost > importMaxim);
+        do{
+            printf("Introdueix el consum en la primera setmana de begudes alcohòliques\n");
+            scanf("%f", &begudesAlcoholCost);
+        }while(begudesAlcoholCost < 0 || begudesAlcoholCost > importMaxim);
+        do{
+            printf("Introdueix el consum en la primera setmana d'aigua\n");
+            scanf("%f", &aiguaCost);
+        }while(aiguaCost < 0 || aiguaCost > importMaxim);
+        do{
+            printf("Introdueix el consum en la primera setmana de productes sanitaris\n");
+            scanf("%f", &prodSanitarisCost);
+        }while(prodSanitarisCost < 0 || prodSanitarisCost > importMaxim);
+        /*faig una ultima suma per comprovar que les dades no son iguals a 0, ja que de ser així no te sentit comprovar les setmanes següents*/
+        if((fruitesVerduresCost + cerealsDerivatsCost + altresAlimentsCost + begudesSucreCost + begudesAlcoholCost + aiguaCost + prodSanitarisCost) > 0){
+           dadesCorrectes = true;
         }else{
-            printf("\nNo es poden acceptar imports inferiors a 0€\n");
+            printf("\nNo es pot calcular el cost de les altres setmanes si a la setmana 1 el gast ha sigut de 0€\n");
         }
     }
     /*productes amb IVA del 21%*/
