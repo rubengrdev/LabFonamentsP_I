@@ -1,15 +1,15 @@
 #include <stdio.h>
 #define sensors 99;
-#define columnes 1;
 
 int main(){
     FILE * fit;
     int sen = sensors;
-    int col = columnes
-    float temp1, mitjana, suma, taula_temps[sen][col];
-    int n_fil1, n_fil2, cont_temp;
-    n_fil1 = 0;
-    n_fil2 = 0;
+    float temp1, mitjana, suma, taula_temps[sen];
+    int n_fil, cont_temp, menor_avg, major_avg;
+
+    menor_avg = 0;
+    major_avg = 0;
+    n_fil = 0;
     suma = 0;
     cont_temp = 0;
     fit = fopen("temp1.txt","r");
@@ -22,30 +22,27 @@ int main(){
                     /*En aquest punt els sensors son valids, podem calcular la mitjana*/
                     suma += temp1;
                     cont_temp++;
+                    /*Insertem a la posició de la taula el valor en farenheit*/
+                    taula_temps[n_fil] =  ("%.2f",temp1);
+                    n_fil++;
                 }
                 fscanf(fit, "%f", &temp1);
             }
             mitjana = suma / cont_temp;
             fclose(fit);
-            /*Com ja he comprovat anteriorment si podia accedit a l'arxiu no tornaré a preguntar*/
-            fit = fopen("temp1.txt","r");
-            fscanf(fit, "%f", &temp1);
-            printf("%1.f", mitjana);
-            while(!feof(fit)){
-                 if(("%.1f",temp1) != -999.90f){
-                    if(("%.1f",temp1) < ("%.1f",mitjana)){
-                        taula_temps[n_fil1][0] =  ("%.1f",temp1);
-                        n_fil1++;
-                        printf("\nMitjana < %1.f", temp1);
-                    }else{
-                        taula_temps[n_fil2][1] =  ("%.1f",temp1);
-                        n_fil1++;
-                        printf("\nMitjana > %1.f", temp1);
-                    }
+            /*Iterar sobre la taula per obtenir les dades de volta*/
+            for(int i = 0; i < n_fil; i++){
+                if(taula_temps[i] < mitjana){
+                    /*printf("\n%.2f > %.2f", mitjana, taula_temps[i]);*/
+                    menor_avg++;
+                }else{
+                    /*printf("\n%.2f < %.2f", mitjana, taula_temps[i]);*/
+                    major_avg++;
                 }
-                fscanf(fit, "%f", &temp1);
-            }  
-        fclose(fit);
+            }
+            printf("\nMitjana: %1.f", mitjana);
+            printf("\nTemperatura menor a la mitjana: %d", menor_avg);
+            printf("\nTemperatura major a la mitjana: %d\n", major_avg);
         }
     }
     return 0;
