@@ -14,7 +14,7 @@ int main(){
     n_fil = 0;
     suma = 0;
     cont_temp = 0;
-    fit = fopen("temp1.txt","r");
+    fit = fopen("temp2.txt","r");
     if(fit == NULL){
         printf("No s'ha pogut obrir el fitxer");
     }else{
@@ -38,13 +38,13 @@ int main(){
             /*Iterar sobre la taula per obtenir les dades de volta*/
             for(int i = 0; i < n_fil; i++){
                 if(taula_temps[i] < mitjana){
-                    if(min < taula_temps[i]){
+                    if(taula_temps[i] < min){
                         min = taula_temps[i];
                     }
                     /*printf("\n%.2f > %.2f", mitjana, taula_temps[i]);*/
                     menor_avg++;
                 }else{
-                    if(max > taula_temps[i]){
+                    if(taula_temps[i] > max){
                         max = taula_temps[i];
                     }
                     /*printf("\n%.2f < %.2f", mitjana, taula_temps[i]);*/
