@@ -40,9 +40,9 @@ int main(){
                     major_avg++;
                 }
             }
-            printf("\nMitjana: %1.f", mitjana);
+            printf("\nMitjana: %.2f", mitjana);
             printf("\nTemperatura menor a la mitjana: %d", menor_avg);
-            printf("\nTemperatura major a la mitjana: %d\n", major_avg);
+            printf("\nTemperatura major a la mitjana: %d", major_avg);
         }
     }
     return 0;
