@@ -12,7 +12,7 @@ int main(){
     n_fil = 0;
     suma = 0;
     cont_temp = 0;
-    fit = fopen("temp1.txt","r");
+    fit = fopen("temp22221.txt","r");
     if(fit == NULL){
         printf("No s'ha pogut obrir el fitxer");
     }else{
