@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 int factorial(int num){
-    int factorial = 1;
-    for(int i = 1; i <= num; i++){
+    int i, factorial = 1;
+    for(i = 1; i <= num; i++){
         factorial = factorial*i;
     }
     return factorial;
