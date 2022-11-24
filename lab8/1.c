@@ -10,8 +10,10 @@ int factorial(int num){
 
 int main(){
     int input;
-    printf("\nCalcula el factorial de el numero següent: ");
-    scanf("%d", &input);
-    printf("\nFactorial de %d és: %d\n",input, factorial(input));
+    while(input < 1 || input > 19){
+        printf("\nCalcula el factorial de el numero següent (entre 1 i 19): ");
+        scanf("%d", &input);
+        printf("\nFactorial de %d és: %d\n",input, factorial(input));
+    }
     return 0;
 }

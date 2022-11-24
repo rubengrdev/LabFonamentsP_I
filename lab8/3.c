@@ -28,15 +28,19 @@ int mostra_opcions(){
         scanf("%d", &opcio);
     }
     if(opcio == 1){
-        printf("\nCalcula el factorial de el numero següent: ");
-        scanf("%d", &input);
-        printf("\nFactorial de %d és: %d\n",input, factorial(input));
+        while(input < 1 || input > 19){
+            printf("\nCalcula el factorial de el numero següent (entre 1 i 19): ");
+            scanf("%d", &input);
+            printf("\nFactorial de %d és: %d\n",input, factorial(input));
+        }
     }else if(opcio == 2){
+        while(input1 < 1 || input1 > 19){
             printf("\nInserta el primer valor (m)");
             scanf("%d", &input1);
             printf("\nInserta el segón valor (n)");
             scanf("%d", &input2);
             printf("\nVariacions sense repetició de %d i %d és: %d\n",input1, input2, variacions_sense_repeticio(input1, input2));
+        }
     }else if(opcio == 3){
         printf("\nSortint del programa...\n");
     }
