@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
-#define MAX 1000
+#include <string.h>
 
-typedef struct
-{
-char cadena, cad[MAX];
-} str;
+#define MAX 100
 
 /*Métode per comprovar si la cadena de text es correcta (només paraules sense 'chars' estranys)*/
 bool comprova_string(char dada[]){
@@ -29,11 +26,16 @@ bool comprova_string(char dada[]){
     return check;
 }
 int main (){
-    str cadena, cad[MAX];
-    int j;
+    char input[MAX];
+    bool status;
     printf("\nInserta una cadena de text, només pots utilitzar caràcters del tipus: [a-z] - [A-Z]");
-    scanf("%c", &cad[MAX]);
-    
-    //comprova_string(cad);
+    scanf("%s", input);
+    /*Resultat de la funció anterior*/
+    status = comprova_string(input);
+    if(status){
+        printf("\nLa cadena és valida");
+    }else{
+        printf("\nLa cadena NO és valida");
+    }
     return 0;
 }
