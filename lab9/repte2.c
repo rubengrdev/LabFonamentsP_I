@@ -9,7 +9,7 @@ bool replace_string(char dada[]){
     char newstring[MAX];
     bool trigger = false, check = true;
     /*No es una cadena vuida*/
-        while(dada[i] != '\0'){
+        while(dada[i] != 0){
             printf("\n%c",dada[i]);
             //todo
             i++;
@@ -20,7 +20,9 @@ int main (){
     char input[MAX];
     bool status;
     printf("\nInserta una cadena de text");
-    scanf("%s", input);
+    //fgets per llegir cadena de text amb espais (string)
+    fgets(input, MAX, stdin);
+    printf("\n%s\n", input);
     status = replace_string(input);
     if(status){
         printf("\nLa cadena s'ha de modificar");
