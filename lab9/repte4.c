@@ -2,8 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define MAXSTR 100
-#define MAX 10
+#define MAX 100
+
 
 bool comprova_string(char dada[]){
     int i, asciicode;
@@ -28,7 +28,7 @@ bool comprova_string(char dada[]){
 
 int replace_string(char dada[]){
     int i, j = 0, k = 0;
-    char newstring[MAXSTR];
+    char newstring[MAX];
     //utilitzo una funció de C per poder agilitzar el procés strlen()
         for(i=0; i < (int)strlen(dada);i++){
             if((int)dada[i] == 32){
@@ -65,14 +65,14 @@ bool check_phone(char dada[]){
 
 
 int main (){
-    char input[MAXSTR];
+    char input[MAX];
     char inputphone[MAX];
     bool statusphone;
     int mods;
     printf("\nInserta el teu nom complet, només pots utilitzar caràcters del tipus [a-z]-[A-Z]");
     do{
         //fgets per llegir cadena de text amb espais (string)
-        fgets(input, MAXSTR, stdin);
+        fgets(input, MAX, stdin);
          if(comprova_string(input)){
             printf("\nLa cadena és valida");
         }else{
