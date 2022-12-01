@@ -70,17 +70,24 @@ int main (){
     bool statusphone;
     int mods;
     printf("\nInserta el teu nom, només pots utilitzar caràcters del tipus [a-z]-[A-Z]");
-    
     do{
         //fgets per llegir cadena de text amb espais (string)
         fgets(input, MAXSTR, stdin);
+         if(comprova_string(input)){
+            printf("\nLa cadena és valida");
+        }else{
+            printf("\nLa cadena NO és valida");
+        }
     }while(!comprova_string(input));
-    
-    mods = replace_string(input);
-    if(mods > 0){
-        printf("\nLa cadena s'ha de modificar %d vegades", mods);
-    }else{
-        printf("\nLa cadena NO s'ha de modificar");
-    }
+    printf("\nS'han fet %d conversions de lletres", replace_string(input));
+    printf("\nInserta el teu telèfon:");
+    do{
+        fgets(inputphone, MAX, stdin);
+        if(check_phone(inputphone)){
+            printf("\nLa cadena s'ha de modificar %d vegades", mods);
+        }else{
+            printf("\nLa cadena NO s'ha de modificar");
+        }
+    }while(!check_phone(inputphone));
     return 0;
 }
