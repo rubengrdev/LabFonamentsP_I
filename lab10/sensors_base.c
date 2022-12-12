@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-
+#define MAX 100
 typedef struct
 {
 	int temp;   /* temperatura en graus Celsius */
@@ -60,36 +60,29 @@ void llegir_sensor (dades_t *dades)
 
 }
 
+void mostrar_dades_sensor(dades_t *dades){
+	if(dades->hum != '\0'){
+		printf("\nHum: %d", dades->hum);
+	}
+	if(dades->temp != '\0'){
+		printf("\nTemperatura: %d", dades->temp);
+	}
+	if(dades->llum){
+		printf("\nLlum: Si\n");
+	}else{
+		printf("\nLlum: No\n");
+	}
+}
 
 int main ()
 {
-	int i = 0;
-	dades_t exdada;
-    dades_t array[100];
+    dades_t coleccio[MAX];
 
-	exdada.hum = 30;
-	exdada.llum = false;
-	exdada.temp = 22;
-
-	//prova per agafar informació de la estructura de dades (obj)
-	printf("La informació de el objecte creat és: %d, %d, %d", exdada.hum, exdada.temp, exdada.llum);
-	array[0] = exdada;
+	ini_sensor(coleccio);
+	llegir_sensor(coleccio);
+	mostrar_dades_sensor(coleccio);
 
 
-	exdada.hum = 15;
-	exdada.llum = true;
-	exdada.temp = 12;
 
-	//prova per agafar informació de la estructura de dades (obj)
-	printf("La informació de el objecte creat és: %d, %d, %d", exdada.hum, exdada.temp, exdada.llum);
-	array[1] = exdada;
-
-	//prova provisional
-	for(i = 0; i < 10; i++){
-		printf("\nLa informació de el objecte %d és: %d, %d, %d", i, array[i].hum, array[i].temp, array[i].llum);
-	
-		
-		
-	}
 	return 0;
 }
