@@ -63,8 +63,33 @@ void llegir_sensor (dades_t *dades)
 
 int main ()
 {
+	int i = 0;
+	dades_t exdada;
+    dades_t array[100];
+
+	exdada.hum = 30;
+	exdada.llum = false;
+	exdada.temp = 22;
+
+	//prova per agafar informació de la estructura de dades (obj)
+	printf("La informació de el objecte creat és: %d, %d, %d", exdada.hum, exdada.temp, exdada.llum);
+	array[0] = exdada;
 
 
+	exdada.hum = 15;
+	exdada.llum = true;
+	exdada.temp = 12;
 
+	//prova per agafar informació de la estructura de dades (obj)
+	printf("La informació de el objecte creat és: %d, %d, %d", exdada.hum, exdada.temp, exdada.llum);
+	array[1] = exdada;
+
+	//prova provisional
+	for(i = 0; i < 10; i++){
+		printf("\nLa informació de el objecte %d és: %d, %d, %d", i, array[i].hum, array[i].temp, array[i].llum);
+	
+		
+		
+	}
 	return 0;
 }
