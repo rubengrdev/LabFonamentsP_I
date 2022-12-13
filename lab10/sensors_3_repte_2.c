@@ -74,12 +74,28 @@ void mostrar_dades_sensor(dades_t *dades){
 	}
 }
 
+void maxim_minim_sensor(int * taula){
+	int k, min, max;
+	taula[0] = min;
+	taula[0] = max;
+	for(k = 0; k < sizeof(taula); k++){
+		if(taula[k]  > max){
+			max = taula[k];
+		}
+		if(taula[k] < min){
+			min = taula[k];
+		}
+	}
+	printf("\nEl minim és %d", min);
+	printf("\nEl maxim és %d", max);
+}
+
 int main ()
 {
-	int i = 0, j, n_lec;
+	int i = 0, j, l = 0, n_lec, temperatura[MAX];
     dades_t coleccio[MAX];
 	ini_sensor(coleccio);
-
+	
 	do{
 		printf("\nIntrodueix el numero de elements que vols: ");
 		scanf("%d", &n_lec);
@@ -87,6 +103,7 @@ int main ()
 
 	while(i < n_lec){
 		llegir_sensor(coleccio);
+		temperatura[i] = coleccio->temp;
 		mostrar_dades_sensor(coleccio);
 		i++;
 	}
