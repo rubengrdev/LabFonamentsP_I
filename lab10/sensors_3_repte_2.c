@@ -113,7 +113,6 @@ int read_int_dimension(int num){
 	}else if(num <= 100000){
 		i=100000;
 	}
-	printf("\nValor de i: %d", i);
 	return i;
 }
 
