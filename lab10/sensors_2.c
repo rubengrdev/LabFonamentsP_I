@@ -81,8 +81,10 @@ int main ()
     dades_t * coleccio;
 	ini_sensor(coleccio);
 
+	do{
 		printf("\nIntrodueix el numero de elements que vols: ");
 		scanf("%d", &n_lec);
+	}while(n_lec < 1);
 
 	while(i < n_lec){
 		llegir_sensor(coleccio);
@@ -91,6 +93,5 @@ int main ()
 		i++;
 	}
 
-	
 	return 0;
 }
