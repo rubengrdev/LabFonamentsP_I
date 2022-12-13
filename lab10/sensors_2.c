@@ -76,22 +76,25 @@ void mostrar_dades_sensor(dades_t *dades){
 
 int main ()
 {
-	int i = 0, n_lec;
-	dades_t array[n_lec];
-    dades_t coleccio[2];
+	int i = 0, j,  n_lec;
+	dades_t * array[MAX];
+    dades_t * coleccio;
 	ini_sensor(coleccio);
-	
-	do{
+
+		printf("\nIntrodueix el numero de elements que vols: ");
 		scanf("%d", &n_lec);
-	}while(n_lec <= 0);
 
 	while(i < n_lec){
 		llegir_sensor(coleccio);
+		array[i] = coleccio;
+		printf("\nS'han llegit dades del sensor");
 		mostrar_dades_sensor(coleccio);
-		array[i] = * coleccio;
 		i++;
 	}
 	
+	for(j = 0; j < n_lec; j++){
+		mostrar_dades_sensor(array[j]);
+	}
 
 
 
