@@ -74,11 +74,11 @@ void mostrar_dades_sensor(dades_t *dades){
 	}
 }
 
-void maxim_minim_sensor(int * taula){
+void maxim_minim_sensor(int taula[], int size){
 	int k, min, max;
-	taula[0] = min;
-	taula[0] = max;
-	for(k = 0; k < sizeof(taula); k++){
+	min = taula[0];
+	max = taula[0];
+	for(k = 0; k < size; k++){
 		if(taula[k]  > max){
 			max = taula[k];
 		}
@@ -87,13 +87,54 @@ void maxim_minim_sensor(int * taula){
 		}
 	}
 	printf("\nEl minim és %d", min);
-	printf("\nEl maxim és %d", max);
+	printf("\nEl maxim és %d\n", max);
 }
+
+void humitat_30_70_sensor(int taula[], int size){
+	int k, counter = 0;
+	for(k = 0; k < size; k++){
+		if(taula[k]  > 30 && taula[k] < 70){
+			counter++;
+		}
+	}
+	printf("\nL'Humitat s'ha trobat entre el 30 i 70 percent en %d casos", counter);
+}
+
+int read_int_dimension(int num){
+	int i = 1;
+	if(num <= 10){
+		i = 100;
+	}else if(num <= 100){
+		i = 100;
+	}else if(num <= 1000){
+		i = 1000;
+	}else if(num <= 10000){
+		i= 10000;
+	}else if(num <= 100000){
+		i=100000;
+	}
+	printf("\nValor de i: %d", i);
+	return i;
+}
+
+void llum_percentatge(bool taula[], int size){
+	float percent = 0.00;
+	int k, counter = 0, div;
+	for(k = 0; k < size; k++){
+		if(taula[k] == true){
+			counter++;
+		}
+	}
+	printf("\nNumero de llums: %d", counter);
+	percent = ((counter*read_int_dimension(size))/size);
+	printf("\nPercentatge de llums: %.2f per cent", percent);
+}
+
 
 int main ()
 {
-	int i = 0, j, l = 0, n_lec, temperatura[MAX];
-    dades_t coleccio[MAX];
+	int i = 0, l = 0, n_lec;
+    dades_t coleccio[2];
 	ini_sensor(coleccio);
 	
 	do{
@@ -101,12 +142,21 @@ int main ()
 		scanf("%d", &n_lec);
 	}while(n_lec < 1);
 
+	int temperatura[n_lec];
+	int humitat[n_lec];
+	bool llum[n_lec];
+
 	while(i < n_lec){
 		llegir_sensor(coleccio);
 		temperatura[i] = coleccio->temp;
+		humitat[i] = coleccio->hum;
+		llum[i] = coleccio->llum;
 		mostrar_dades_sensor(coleccio);
 		i++;
 	}
 
+	maxim_minim_sensor(temperatura, n_lec);
+	humitat_30_70_sensor(humitat, n_lec);
+	llum_percentatge(llum, n_lec);
 	return 0;
 }
