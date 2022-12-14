@@ -17,7 +17,6 @@ void ini_sensor (dades_t *dades)
 	srand(time(NULL));
 	dades->temp = (-30 + rand()%(80+1));	/* Valor inicial de temperatura */
 	dades->hum = 40 + rand()%(60+1);	/* Valor inicial de humitat */
-
 }
 
 /**
