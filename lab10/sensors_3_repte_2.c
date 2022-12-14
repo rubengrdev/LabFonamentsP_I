@@ -100,22 +100,6 @@ void humitat_30_70_sensor(int taula[], int size){
 	printf("\nL'Humitat s'ha trobat entre el 30 i 70 percent en %d casos", counter);
 }
 
-int read_int_dimension(int num){
-	int i = 1;
-	if(num <= 10){
-		i = 100;
-	}else if(num <= 100){
-		i = 100;
-	}else if(num <= 1000){
-		i = 1000;
-	}else if(num <= 10000){
-		i= 10000;
-	}else if(num <= 100000){
-		i=100000;
-	}
-	return i;
-}
-
 void llum_percentatge(bool taula[], int size){
 	float percent = 0.00;
 	int k, counter = 0, div;
@@ -124,8 +108,8 @@ void llum_percentatge(bool taula[], int size){
 			counter++;
 		}
 	}
-	printf("\nNumero de llums: %d", counter);
-	percent = ((counter*read_int_dimension(size))/size);
+	printf("\nNumero de llums enceses: %d", counter);
+	percent = ((counter*100)/size);
 	printf("\nPercentatge de llums: %.2f per cent", percent);
 }
 
