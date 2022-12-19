@@ -33,6 +33,7 @@ int main() {
     }
 
     printf("\n");
+    
     while (z < sizeof(message)*2){
         int n, m;
         bool triggerRow = false, triggerColumn = false;
@@ -41,7 +42,6 @@ int main() {
         /*obtenció de la posició n x m a l'array/taula de el caracter original*/
         do{
             if(encryptedMessage[z] == matrix[n][0]){
-                printf("%c", matrix[n][0]);
                 //l'objectiu es guardar el contador de "n" ja que té la posició n x m de la matriu
                 triggerRow = true;
                 z++;
@@ -52,8 +52,6 @@ int main() {
         
         do{
             if(encryptedMessage[z] == matrix[0][m]){
-                printf("%c", matrix[0][m]);
-                //printf("\nm: %d", m);
                 //l'objectiu es guardar el contador de "m" ja que té la posició n x m de la matriu
                 triggerColumn = true;
                 z++;
@@ -61,21 +59,9 @@ int main() {
                 m++;
             }
         }while(!triggerColumn);
-    
-        //printf("%c", matrix[m-1][n-1]);
-        /*
-         for(i = 0; i < 7; i++){
-            for(j = 0; j < 7; j++){
-                //la primera i fila [0] que referencia "i" i "j" és una base, no ha de se part de la clau de xifrat
-                if(encryptedMessage[z] == matrix[0][j]){
-                    printf("\nword %d %d", i, j);
-                }
-                if(encryptedMessage[z] == matrix[i][0]){
-                    printf("\nword %d %d", j, i);
-                }
-            }
-        }
-        */
+
+        //demo decript
+        printf("%c", matrix[n][m]);
     }
    
     return 0;
