@@ -32,21 +32,37 @@ int main() {
         k++;
     }
 
-    int n = 0, m = 0, triggerRow = false, triggerColumn = false;
+    printf("\n");
     while (z < sizeof(message)*2){
-
+        int n, m;
+        bool triggerRow = false, triggerColumn = false;
+        n = 0;
+        m = 0;
+        /*obtenció de la posició n x m a l'array/taula de el caracter original*/
         do{
-            printf("\n%c found at Column: %d\n", matrix[n][0], n);
             if(encryptedMessage[z] == matrix[n][0]){
+                printf("%c", matrix[n][0]);
+                //l'objectiu es guardar el contador de "n" ja que té la posició n x m de la matriu
+                triggerRow = true;
+                z++;
+            }else{
+                n++;
+            }
+        }while(!triggerRow);
+        
+        do{
+            if(encryptedMessage[z] == matrix[0][m]){
+                printf("%c", matrix[0][m]);
+                //printf("\nm: %d", m);
+                //l'objectiu es guardar el contador de "m" ja que té la posició n x m de la matriu
                 triggerColumn = true;
-                //z++;
-                //avisar de la posición en la que se encuentra aqui
-                
-                n = 0;
-            }    
-           n++; 
+                z++;
+            }else{
+                m++;
+            }
         }while(!triggerColumn);
     
+        //printf("%c", matrix[m-1][n-1]);
         /*
          for(i = 0; i < 7; i++){
             for(j = 0; j < 7; j++){
@@ -60,7 +76,6 @@ int main() {
             }
         }
         */
-        z++;
     }
    
     return 0;
