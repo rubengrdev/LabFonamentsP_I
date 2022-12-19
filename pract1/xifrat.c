@@ -32,16 +32,22 @@ int main() {
         k++;
     }
 
-    int n = 0, m = 0, trigger= false;
+    int n = 0, m = 0, triggerRow = false, triggerColumn = false;
     while (z < sizeof(message)*2){
 
         do{
-            if(){
-                trigger = true; 
-            }
+            printf("\n%c found at Column: %d\n", matrix[n][0], n);
+            if(encryptedMessage[z] == matrix[n][0]){
+                triggerColumn = true;
+                //z++;
+                //avisar de la posición en la que se encuentra aqui
+                
+                n = 0;
+            }    
            n++; 
-        }while(!trigger);
-
+        }while(!triggerColumn);
+    
+        /*
          for(i = 0; i < 7; i++){
             for(j = 0; j < 7; j++){
                 //la primera i fila [0] que referencia "i" i "j" és una base, no ha de se part de la clau de xifrat
@@ -53,6 +59,7 @@ int main() {
                 }
             }
         }
+        */
         z++;
     }
    
