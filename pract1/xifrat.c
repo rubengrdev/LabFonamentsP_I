@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
-char * construir_matriu_xifrat(){
-    char matrix[7][7] = {
+void construir_matriu_xifrat(char matrix[][7]){
+    char matrix2[7][7] = {
         {' ', 'X', 'I', 'F', 'R', 'A', 'T'},
         {'N', 'A', 'B', 'C', 'D', 'E', 'F'},
         {'O', 'G', 'H', 'I', 'J', 'K', 'L'},
@@ -11,15 +12,24 @@ char * construir_matriu_xifrat(){
         {'A', 'Y', 'Z', ' ', '1', '2', '3'},
         {'L', '4', '5', '6', '7', '8', '9'}
     };
-    return * matrix;
+    
+    int a, b;
+    for(a = 0; a < 7; a++){
+        for(b = 0; b < 7; b++){
+            matrix[a][b] = matrix2[a][b];
+        }
+    }   
 }
+
+
+
 
 
 
 
 void xifrar_frase(char text[], char matrix[][7]){
     int i, j, k = 0;
-    while(k < sizeof(text)){  
+    while(k < strlen(text)){  
         for(i = 0; i < 7; i++){
             for(j = 0; j < 7; j++){
                 //la primera i fila [0] que referencia "i" i "j" és una base, no ha de se part de la clau de xifrat
@@ -38,7 +48,7 @@ void xifrar_frase(char text[], char matrix[][7]){
 void desxifrar_frase(char textXifrat[], char matrix[][7]){
     int n, m, z = 0;
     bool triggerRow, triggerColumn;
-    while (z < sizeof(textXifrat)){
+    while (z < strlen(textXifrat)){
         triggerRow = false;
         triggerColumn = false;
         n = 0;
@@ -74,10 +84,12 @@ int main() {
     bool trigger = false;
     char message[] = "CONTINUEM PLA2";
     char encryptedMessage[] = "NFRFRIMIOFRIMFNARXAFRROTNXAA";
-
+    char matrix[7][7] = {};
     
-    char * matrix = construir_matriu_xifrat();
-
+    construir_matriu_xifrat(matrix);
+    xifrar_frase(message, matrix);
+    printf("\ndesxifrada: ");
+    desxifrar_frase("NFRFRIMIOFRIMFNARXAFRROTNXAA", matrix);
     
    
     return 0;
