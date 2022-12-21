@@ -10,22 +10,53 @@ int obtindreMida(char string[]){
     return i;
 }
 
-void construir_matriu_xifrat(char matrix[][7]){
+void construir_matriu_xifrat(char newMatrix[][7]){
     int a, b;
-    char matrix2[7][7] = {
-        {' ', 'X', 'I', 'F', 'R', 'A', 'T'},
+    //caracters que s'utilitzen per poder crear l'encriptat (fila de dalt)
+    char xifratX[6] =  {'X', 'I', 'F', 'R', 'A', 'T'};
+    //caracters que s'utilitzen per poder crear l'encriptat (columna esquerra)
+    char xifratY[6] =  {'N', 'O', 'R', 'M', 'A', 'L'};
+    char matrixBase[6][6] = {
+        {'A', 'B', 'C', 'D', 'E', 'F'},
+        {'G', 'H', 'I', 'J', 'K', 'L'},
+        {'M', 'N', 'O', 'P', 'Q', 'R'},
+        {'S', 'T', 'U', 'V', 'W', 'X'},
+        {'Y', 'Z', ' ', '1', '2', '3'},
+        {'4', '5', '6', '7', '8', '9'}
+    };
+    /*
+    Amb aquesta definició de variables tan especifica el que busquem es obtindre una matriu com la següent quan es tractada per el bucle.
+    Tenir separada d'aquesta forma la primera columna i la primera fila ens permet utilitzar altres caracters de xifrat.
+
+        {{' ', 'X', 'I', 'F', 'R', 'A', 'T'},
         {'N', 'A', 'B', 'C', 'D', 'E', 'F'},
         {'O', 'G', 'H', 'I', 'J', 'K', 'L'},
         {'R', 'M', 'N', 'O', 'P', 'Q', 'R'},
         {'M', 'S', 'T', 'U', 'V', 'W', 'X'},
         {'A', 'Y', 'Z', ' ', '1', '2', '3'},
-        {'L', '4', '5', '6', '7', '8', '9'}
-    };
+        {'L', '4', '5', '6', '7', '8', '9'}};
+    
+    */
     for(a = 0; a < 7; a++){
+        printf("\n");
         for(b = 0; b < 7; b++){
-            matrix[a][b] = matrix2[a][b];
+            if(a == 0 && b == 0){
+                newMatrix[a][b] = ' ';
+            }else if(a == 0 && b > 0){
+                newMatrix[a][b] = xifratX[b-1];
+            }else{
+                if(newMatrix[a][0] == '\0'){
+                    newMatrix[a][0] = xifratY[a-1];
+                }else{
+                    newMatrix[a][b] = matrixBase[a-1][b-1];
+                }
+            }
+            
+            
+            printf("%c", newMatrix[a][b]);
         }
     }   
+    
 }
 
 
@@ -121,11 +152,10 @@ int main() {
     char frase_desxifrada[(obtindreMida(message))];
 
     construir_matriu_xifrat(matrix);
-    xifrar_frase(message, matrix, frase_xifrada);
-    printf("\n%s", frase_xifrada);
-    desxifrar_frase(frase_xifrada, matrix, frase_desxifrada);
+   // xifrar_frase(message, matrix, frase_xifrada);
     //printf("\n%s", frase_xifrada);
-    printf("\n%s", frase_desxifrada);
+    //desxifrar_frase(frase_xifrada, matrix, frase_desxifrada);
+   // printf("\n%s", frase_desxifrada);
    
 
     return 0;
