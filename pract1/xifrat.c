@@ -2,6 +2,14 @@
 #include <stdbool.h>
 #include <string.h>
 
+int obtindreMida(char string[]){
+    int i = 0;
+    while(string[i] != '\0'){
+        i++;
+    }
+    return i;
+}
+
 void construir_matriu_xifrat(char matrix[][7]){
     int a, b;
     char matrix2[7][7] = {
@@ -25,7 +33,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
     int i, j, k = 0, l = 0, o = 0;
 
     bool firtsValue = false;
-    while(k < strlen(text)){  
+    while(k < (obtindreMida(text))){  
         for(i = 0; i < 7; i++){
             for(j = 0; j < 7; j++){
                 //la primera i fila [0] que referencia "i" i "j" és una base, no ha de se part de la clau de xifrat
@@ -58,7 +66,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
 void desxifrar_frase(char textXifrat[], char matrix[][7]){
     int n, m, z = 0;
     bool triggerRow, triggerColumn;
-    while (z < strlen(textXifrat)){
+    while (z < obtindreMida(textXifrat)){
         triggerRow = false;
         triggerColumn = false;
         n = 0;
@@ -89,25 +97,18 @@ void desxifrar_frase(char textXifrat[], char matrix[][7]){
     }
 }
 
-int obtindreMida(char string[]){
-    int i = 0;
-    while(string[i] != '\0'){
-        i++;
-    }
-    return i;
-}
+
 
 int main() {
-    char message[] = "WELCOME TO THE JUNGLE";
+    char message[] = "CONTINUEM PLA2";
     char encryptedMessage[] = "NFRFRIMIOFRIMFNARXAFRROTNXAAASDASDSADAD";
     char matrix[7][7] = {};
-    char frase_xifrada[(strlen(message)*2)];
+    char frase_xifrada[(obtindreMida(message)*2)];
 
     construir_matriu_xifrat(matrix);
     xifrar_frase(message, matrix, frase_xifrada);
     
     printf("\n%s", frase_xifrada);
-    
    
 
     return 0;
