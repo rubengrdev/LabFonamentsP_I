@@ -23,6 +23,7 @@ void construir_matriu_xifrat(char matrix[][7]){
 
 void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
     int i, j, k = 0, l = 0, o = 0;
+
     bool firtsValue = false;
     while(k < strlen(text)){  
         for(i = 0; i < 7; i++){
@@ -31,7 +32,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
                 if(i >= 1 && j >= 1){
                     if(text[k] == matrix[i][j]){
                         //printf("\n%c", matrix[i][j]);
-                        //printf("\nprintf: %c%c", matrix[i][0], matrix[0][j]);
+                        printf("%c%c", matrix[i][0], matrix[0][j]);
                         do{
                             if(l == 0){
                                 frase_xifrada[(o+l)] = matrix[i][0];
@@ -41,7 +42,6 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
                                 firtsValue = false; //reset variable
                                 l = 0;
                             }
-                            
                         }while(!firtsValue && l > 0);
                         o = o + 2;
                     }
@@ -50,6 +50,9 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
         }
         k++;
     }
+    //finalització de la cadena de text
+    frase_xifrada[o] = '\0';
+
 }
 
 void desxifrar_frase(char textXifrat[], char matrix[][7]){
@@ -86,17 +89,23 @@ void desxifrar_frase(char textXifrat[], char matrix[][7]){
     }
 }
 
-
+int obtindreMida(char string[]){
+    int i = 0;
+    while(string[i] != '\0'){
+        i++;
+    }
+    return i;
+}
 
 int main() {
-    char message[] = "CONTINUEM PLA2";
-    char encryptedMessage[] = "NFRFRIMIOFRIMFNARXAFRROTNXAA";
+    char message[] = "CONTINUEM PlA2";
+    char encryptedMessage[] = "NFRFRIMIOFRIMFNARXAFRROTNXAAASDASDSADAD";
     char matrix[7][7] = {};
-    char frase_xifrada[100] = '\0';
+    char frase_xifrada[(strlen(message)*2)-1];
 
     construir_matriu_xifrat(matrix);
     xifrar_frase(message, matrix, frase_xifrada);
-    printf("\n%s", encryptedMessage);
+    
     printf("\n%s", frase_xifrada);
     //printf("\ndesxifrada: ");
     //desxifrar_frase("NFRFRIMIOFRIMFNARXAFRROTNXAA", matrix);
