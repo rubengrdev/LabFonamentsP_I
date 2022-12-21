@@ -98,17 +98,15 @@ int obtindreMida(char string[]){
 }
 
 int main() {
-    char message[] = "CONTINUEM PlA2";
+    char message[] = "WELCOME TO THE JUNGLE";
     char encryptedMessage[] = "NFRFRIMIOFRIMFNARXAFRROTNXAAASDASDSADAD";
     char matrix[7][7] = {};
-    char frase_xifrada[(strlen(message)*2)-1];
+    char frase_xifrada[(strlen(message)*2)];
 
     construir_matriu_xifrat(matrix);
     xifrar_frase(message, matrix, frase_xifrada);
     
     printf("\n%s", frase_xifrada);
-    //printf("\ndesxifrada: ");
-    //desxifrar_frase("NFRFRIMIOFRIMFNARXAFRROTNXAA", matrix);
     
    
 
