@@ -145,17 +145,16 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
 
 int main() {
     char message[] = "CONTINUEM PLA2";
-    char encryptedMessage[] = "NFRFRIMIOFRIMFNARXAFRROTNXAA";
     char matrix[7][7] = {};
     //un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
     char frase_xifrada[(obtindreMida(message)*2)];
     char frase_desxifrada[(obtindreMida(message))];
 
     construir_matriu_xifrat(matrix);
-   // xifrar_frase(message, matrix, frase_xifrada);
-    //printf("\n%s", frase_xifrada);
-    //desxifrar_frase(frase_xifrada, matrix, frase_desxifrada);
-   // printf("\n%s", frase_desxifrada);
+    xifrar_frase(message, matrix, frase_xifrada);
+    printf("\n%s", frase_xifrada);
+    desxifrar_frase(frase_xifrada, matrix, frase_desxifrada);
+    printf("\n%s", frase_desxifrada);
    
 
     return 0;
