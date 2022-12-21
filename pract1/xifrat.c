@@ -144,7 +144,8 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
 
 
 int main() {
-    char message[] = "CONTINUEM PLA2";
+    int opcio;
+    char message[80];
     char matrix[7][7] = {};
     //un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
     char frase_xifrada[(obtindreMida(message)*2)];
@@ -156,6 +157,39 @@ int main() {
     desxifrar_frase(frase_xifrada, matrix, frase_desxifrada);
     printf("\n%s", frase_desxifrada);
    
+   do{
+        printf("\n\n---Pràctica de Xifrat---\nTria una opció insertant el seu nº:\n(exemple: per seleccionar la primera opció escriu '1')\n\n");
+        //opcions
+        printf("\n1.- Encriptar un text introduit per teclat");
+        printf("\n2.- Desencriptar un text introduit per teclat");
+        printf("\n3.- Encriptar un text inclòs en un arxiu de text");
+        printf("\n4.- Desencriptar un text inclòs en un arxiu de text");
+        printf("\n5.- Sortir\n\n");
+        printf("\nSeleccionar opció: ");
+        scanf("%d", &opcio);
+   }while(opcio < 1 || opcio > 5);
+
+   switch (opcio)
+   {
+   case 1:
+        //encriptar un text introduit per teclat
+        printf("\nHas seleccionat la opció (1) - Encriptar un text introduit per teclat");
+        printf("\nIntrodueix un text a encriptar: ");
+        scanf("%s",message);
+        
+    break;
+   case 2:
+    //desencriptar un text introduit per teclat
+    break;
+   case 3:
+    //encriptar un text inclòs en un arxiu de text
+    break;
+   case 4:
+    //desencriptar un text inclòs en un arxiu de text
+    break;
+   default:
+    break;
+   }
 
     return 0;
 }
