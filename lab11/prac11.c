@@ -49,7 +49,7 @@ int main()
 
 	printf("\nIntrodueix el tercer caracter:");
 	scanf("%s", cars3);
-
+stdin
 	printf("\nCaracters introduits %s %s %s", cars1, cars2, cars3); */
 
 
