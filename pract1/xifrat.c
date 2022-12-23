@@ -144,19 +144,23 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
 
 
 int main() {
-    int opcio;
+    FILE * fit;
+    int opcio, fileStringCounter, fileCounter = 0;
     char message[80];
     char encriptedMessage[160];
+    char fileString[80];
     char matrix[7][7] = {};
     //un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
-    char frase_xifrada[(obtindreMida(message)*2)];
-    char frase_desxifrada[(obtindreMida(message))];
-
+    char frase_xifrada[160];
+    char frase_desxifrada[80];
+    //boleà per comprovar que l'arxiu s'ha trobat
+    bool fileExists = false;
+    //obrir arxiu:
+    fit = fopen("Text_a_xifrar.txt", "r");
+    if(fit != NULL){
+        fileExists = true;
+    }
     construir_matriu_xifrat(matrix);
-    xifrar_frase(message, matrix, frase_xifrada);
-    printf("\n%s", frase_xifrada);
-    desxifrar_frase(frase_xifrada, matrix, frase_desxifrada);
-    printf("\n%s", frase_desxifrada);
 
    printf("\n\n---Pràctica de Xifrat---\n");
    while(opcio != 5){
@@ -179,18 +183,36 @@ int main() {
         printf("\nHas seleccionat la opció (1) - Encriptar un text introduit per teclat");
         printf("\nIntrodueix un text a encriptar: ");
         //utilitzo expressions regulars per poder obtindre totes les dades de forma correcta (strings amb espais, o salts de linea.)
-        scanf(" %[^\t\n]s",message);
+        scanf("%[^\t\n]s",message);
         printf("\nHas introduit el text: '%s'", message);
         xifrar_frase(message, matrix, frase_xifrada);
         printf("\nText xifrat: '%s'", frase_xifrada);
     break;
    case 2:
     //desencriptar un text introduit per teclat
-    
+        printf("\nIntrodueix un text per desencriptar: ");
+        scanf("%s",encriptedMessage);
+        printf("\nHas introduit el següent text encriptat: '%s'", encriptedMessage);
+        desxifrar_frase(encriptedMessage, matrix, frase_desxifrada);
+        printf("\nText desencriptat: %s", frase_desxifrada);
     break;
    case 3:
     //encriptar un text inclòs en un arxiu de text
-    break;
+    if(fileExists){
+        while(fgets(fileString, 80, fit)){
+            //fileString té cada linea de text que hi ha a l'arxiu
+            fileStringCounter = 0;
+            do{
+                encriptedMessage[fileCounter] = fileString[fileStringCounter];
+                fileStringCounter++;    //contador que s'utilitza internament per cada posició de la linea obtenida de l'arxiu a xifrar
+                fileCounter++;  //contador que  obté la posició a la nova cadena que estem omplint (encriptedMessage)
+            }while(fileStringCounter < obtindreMida(fileString));
+        }
+        fclose(fit);
+        encriptedMessage[obtindreMida(encriptedMessage)] = '\0';
+        printf("\n%s", encriptedMessage);
+    }
+    break;  
    case 4:
     //desencriptar un text inclòs en un arxiu de text
     break;
