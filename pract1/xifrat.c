@@ -9,7 +9,16 @@ int obtindreMida(char string[]){
     }
     return i;
 }
-
+char minuscula_a_majuscula(char message[]){
+    int size = obtindreMida(message);
+    int a = 0;
+    while(a < size){
+        if(("%d",message[a]) >= 97 && ("%d",message[a]) <= 122 ){
+              message[a] = message[a] - 32;
+        }
+        a++;
+    }
+}
 void construir_matriu_xifrat(char newMatrix[][7]){
     int a, b;
     //caracters que s'utilitzen per poder crear l'encriptat (fila de dalt)
@@ -63,6 +72,8 @@ void construir_matriu_xifrat(char newMatrix[][7]){
 void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
     int i, j, k = 0, l = 0, o = 0;
     bool firtsValue = false;
+    //comprovació si totes les lletres son en majuscula per poder fer la transformació, en el cas de ser minuscula la transforma a majuscula
+    minuscula_a_majuscula(text);
     while(k < (obtindreMida(text))){  
         for(i = 0; i < 7; i++){
             for(j = 0; j < 7; j++){
@@ -154,11 +165,11 @@ void llegir_arxiu(FILE * fit, char encriptedMessage[]){
                 }while(fileStringCounter < obtindreMida(fileString));
             }
             encriptedMessage[(obtindreMida(encriptedMessage))] = '\0';
-            printf("\n%s", encriptedMessage);
+            //printf("\n%s", encriptedMessage);
 }
 
 int main() {
-    FILE * fit;
+    FILE * fit, * fitW;
     int opcio, fileStringCounter, fileCounter = 0;
     char message[80];
     char encriptedMessage[160];
@@ -213,23 +224,13 @@ int main() {
    case 3:
     //encriptar un text inclòs en un arxiu de text
     if(fileExists){
-
-        llegir_arxiu(fit, encriptedMessage);
-        /*
-        while(fgets(fileString, 80, fit)){
-            //fileString té cada linea de text que hi ha a l'arxiu
-            fileStringCounter = 0;
-            do{
-                encriptedMessage[fileCounter] = fileString[fileStringCounter];
-                fileStringCounter++;    //contador que s'utilitza internament per cada posició de la linea obtenida de l'arxiu a xifrar
-                fileCounter++;  //contador que  obté la posició a la nova cadena que estem omplint (encriptedMessage)
-            }while(fileStringCounter < obtindreMida(fileString));
-            //encriptedMessage[obtindreMida(encriptedMessage)] = fileString;
-        }
-        */
+        llegir_arxiu(fit, message);
         fclose(fit);
-        //encriptedMessage[obtindreMida(encriptedMessage)] = '\0';
-        //printf("\n%s", encriptedMessage);
+        xifrar_frase(message, matrix, frase_xifrada);
+        fitW = fopen("Text_a_xifrar.txt", "w");
+        fprintf(fitW,"%s",frase_xifrada);
+        fclose(fitW);
+        printf("\nText xifrat: '%s'", frase_xifrada);
     }
     break;  
    case 4:
