@@ -47,7 +47,6 @@ void construir_matriu_xifrat(char newMatrix[][7]){
     
     */
     for(a = 0; a < 7; a++){
-        printf("\n");
         for(b = 0; b < 7; b++){
             if(a == 0 && b == 0){
                 newMatrix[a][b] = ' ';
@@ -60,9 +59,6 @@ void construir_matriu_xifrat(char newMatrix[][7]){
                     newMatrix[a][b] = matrixBase[a-1][b-1];
                 }
             }
-            
-            
-            printf("%c", newMatrix[a][b]);
         }
     }   
     
@@ -168,6 +164,10 @@ void llegir_arxiu(FILE * fit, char encriptedMessage[]){
             //printf("\n%s", encriptedMessage);
 }
 
+void lliurar_buffer(){
+        while ((getchar()) != '\n');
+}
+
 int main() {
     FILE * fit, * fitW;
     int opcio, fileStringCounter, fileCounter = 0;
@@ -208,7 +208,10 @@ int main() {
         printf("\nHas seleccionat la opció (1) - Encriptar un text introduit per teclat");
         printf("\nIntrodueix un text a encriptar: ");
         //utilitzo expressions regulars per poder obtindre totes les dades de forma correcta (strings amb espais, o salts de linea.)
-        scanf("%[^\t\n]s",message);
+        //funció creada per lliurar el buffer de la entrada de dades (fflush no funciona correctament en tots el casos).
+        lliurar_buffer();
+        scanf("%[^\t\n]",message);
+        //llegir_variable_espais(message);
         printf("\nHas introduit el text: '%s'", message);
         xifrar_frase(message, matrix, frase_xifrada);
         printf("\nText xifrat: '%s'", frase_xifrada);
