@@ -235,6 +235,15 @@ int main() {
     break;  
    case 4:
     //desencriptar un text inclòs en un arxiu de text
+     if(fileExists){
+        llegir_arxiu(fit, encriptedMessage);
+        fclose(fit);
+        desxifrar_frase(encriptedMessage, matrix, frase_desxifrada);
+        fitW = fopen("Text_a_xifrar.txt", "w");
+        fprintf(fitW,"%s",frase_desxifrada);
+        fclose(fitW);
+        printf("\nText desencriptat: %s", frase_desxifrada);
+    }
     break;
    default:
     break;
