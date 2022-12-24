@@ -141,7 +141,21 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
     frase_desxifrada[j] = '\0';
 }
 
-
+void llegir_arxiu(FILE * fit, char encriptedMessage[]){
+            int fileStringCounter, fileCounter = 0;
+            char fileString[80];
+            while(fgets(fileString, 80, fit)){
+                //fileString té cada linea de text que hi ha a l'arxiu
+                fileStringCounter = 0;
+                do{
+                    encriptedMessage[fileCounter] = fileString[fileStringCounter];
+                    fileStringCounter++;    //contador que s'utilitza internament per cada posició de la linea obtenida de l'arxiu a xifrar
+                    fileCounter++;  //contador que  obté la posició a la nova cadena que estem omplint (encriptedMessage)
+                }while(fileStringCounter < obtindreMida(fileString));
+            }
+            encriptedMessage[(obtindreMida(encriptedMessage))] = '\0';
+            printf("\n%s", encriptedMessage);
+}
 
 int main() {
     FILE * fit;
@@ -199,6 +213,9 @@ int main() {
    case 3:
     //encriptar un text inclòs en un arxiu de text
     if(fileExists){
+
+        llegir_arxiu(fit, encriptedMessage);
+        /*
         while(fgets(fileString, 80, fit)){
             //fileString té cada linea de text que hi ha a l'arxiu
             fileStringCounter = 0;
@@ -207,10 +224,12 @@ int main() {
                 fileStringCounter++;    //contador que s'utilitza internament per cada posició de la linea obtenida de l'arxiu a xifrar
                 fileCounter++;  //contador que  obté la posició a la nova cadena que estem omplint (encriptedMessage)
             }while(fileStringCounter < obtindreMida(fileString));
+            //encriptedMessage[obtindreMida(encriptedMessage)] = fileString;
         }
+        */
         fclose(fit);
-        encriptedMessage[obtindreMida(encriptedMessage)] = '\0';
-        printf("\n%s", encriptedMessage);
+        //encriptedMessage[obtindreMida(encriptedMessage)] = '\0';
+        //printf("\n%s", encriptedMessage);
     }
     break;  
    case 4:
