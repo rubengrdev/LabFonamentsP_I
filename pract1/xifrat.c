@@ -9,6 +9,21 @@ int obtindreMida(char string[]){
     }
     return i;
 }
+
+void lliurar_buffer(){
+        while ((getchar()) != '\n');
+}
+
+bool comprovar_arxiu(FILE * fit){
+    bool status;
+    if(fit != NULL){
+        status = true;
+    }else{
+        status = false;
+    }
+    return status;
+}
+
 char minuscula_a_majuscula(char message[]){
     int size = obtindreMida(message);
     int a = 0;
@@ -147,53 +162,32 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
     frase_desxifrada[j] = '\0';
 }
 
-void llegir_arxiu(FILE * fit, char encriptedMessage[]){
+void xifrar_arxiu(FILE * fit, char matrix[][7]){
             int fileStringCounter, fileCounter = 0;
-            char fileString[80];
-            while(fgets(fileString, 80, fit)){
-                printf("\n%d--", obtindreMida(fileString));
-                //fileString té cada linea de text que hi ha a l'arxiu
-                if(obtindreMida(fileString) > 0 || obtindreMida(fileString) <= 80){
-                fileStringCounter = 0;
-                do{
-                    encriptedMessage[fileCounter] = fileString[fileStringCounter];
-                    fileStringCounter++;    //contador que s'utilitza internament per cada posició de la linea obtenida de l'arxiu a xifrar
-                    fileCounter++;  //contador que  obté la posició a la nova cadena que estem omplint (encriptedMessage)
-                }while(fileStringCounter < obtindreMida(fileString));
+            char fileString[80], newString[160];
+            FILE * fitW;
+            fitW = fopen("Text_a_xifrar.txt", "w");
+            if(comprovar_arxiu(fitW)){
+                while(fgets(fileString, 80, fit)){
+                    printf("\n%s", fileString);
+                    xifrar_frase(fileString, matrix, newString);
+                    //fprintf(fitW,"%s\n",newString);
                 }
+            }else{
+                printf("\nNo s'ha pogut obrir l'arxiu");
             }
-            encriptedMessage[(obtindreMida(encriptedMessage))] = '\0';
+            
 }
 
-void lliurar_buffer(){
-        while ((getchar()) != '\n');
-}
-bool llegir_linea(FILE * fit){
-    bool overflow = false;
-    char content[80];
-    if(obtindreMida(fgets(content, 80, fit)) > 80){
-        overflow = true;
-    }else{
-        overflow = false;
-    }
-}
-bool comprovar_arxiu(FILE * fit){
-    bool status;
-    if(fit != NULL){
-        status = true;
-    }else{
-        status = false;
-    }
-    return status;
-}
+
 
 
 int main() {
-    FILE * fit, * fitW;
+    FILE * fit, * fitW;;
     int opcio, fileStringCounter, fileCounter = 0;
     char message[80];
     char encriptedMessage[160];
-    char fileString[80];
+    char fileString[80], newString[160];
     char matrix[7][7] = {};
     //un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
     char frase_xifrada[160];
@@ -247,39 +241,36 @@ int main() {
     break;
    case 3:
     //encriptar un text inclòs en un arxiu de text
-    if(fileExists){
+    if(fileExists ){
         fit = fopen("Text_a_xifrar.txt", "r");
-        if(!llegir_linea(fit)){
-        llegir_arxiu(fit, message);
-        xifrar_frase(message, matrix, frase_xifrada);
-        fitW = fopen("Text_a_xifrar.txt", "w");
-        fprintf(fitW,"%s",frase_xifrada);
+        //fitW = fopen("Text_a_xifrar.txt", "w");
+        //if(comprovar_arxiu(fitW)){
+             while(fgets(fileString, 80, fit)){
+                    xifrar_frase(fileString, matrix, newString);
+                    printf("\n%s", newString);
+                   // fprintf(fitW,"%s\n",newString);
+                }
+        //}       
         fclose(fit);
-        fclose(fitW);
-        printf("\nText xifrat: '%s'", frase_xifrada);
-        }else{
-            printf("\nNo s'ha pogut llegir l'arxiu, comprova que el contingut és correcte i que les linies no tenen més de 80 caracters");
-        }
+       // fclose(fitW);
     }
     break;  
    case 4:
     //desencriptar un text inclòs en un arxiu de text
      if(fileExists){
+        /*
         fit = fopen("Text_a_xifrar.txt", "r");
-         if(!llegir_linea(fit)){
-        llegir_arxiu(fit, encriptedMessage);
+        //xifrar_arxiu(fit, fitW, matrix);
         fclose(fit);
         desxifrar_frase(encriptedMessage, matrix, frase_desxifrada);
         fitW = fopen("Text_a_xifrar.txt", "w");
         fprintf(fitW,"%s",frase_desxifrada);
         fclose(fitW);
         printf("\nText desencriptat: %s", frase_desxifrada);
+        */
     }else{
         printf("\nS'ha tancat l'arxiu");
     }
-    }else{
-            printf("\nNo s'ha pogut llegir l'arxiu, comprova que el contingut és correcte i que les linies no tenen més de 80 caracters");
-        }
     break;
    default:
     break;
