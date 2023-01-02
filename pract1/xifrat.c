@@ -184,8 +184,9 @@ void xifrar_arxiu(FILE * fit, char matrix[][7]){
 
 int main() {
     FILE * fit, * fitW;;
-    int opcio, fileStringCounter, fileCounter = 0;
+    int opcio, fileStringCounter, fileCounter = 0, fileLineCounter = 0, fileLineJumper = 0, readCounter = 0, writeCounter = 0;
     char message[80];
+    char filePosition;
     char encriptedMessage[160];
     char fileString[80], newString[160];
     char matrix[7][7] = {};
@@ -241,18 +242,26 @@ int main() {
     break;
    case 3:
     //encriptar un text inclòs en un arxiu de text
-    if(fileExists ){
+    if(fileExists){
         fit = fopen("Text_a_xifrar.txt", "r");
-        //fitW = fopen("Text_a_xifrar.txt", "w");
-        //if(comprovar_arxiu(fitW)){
-             while(fgets(fileString, 80, fit)){
-                    xifrar_frase(fileString, matrix, newString);
-                    printf("\n%s", newString);
-                   // fprintf(fitW,"%s\n",newString);
-                }
-        //}       
+        fitW = fopen("Text_ja_xifrar.txt", "w");
+        while(fgets(fileString, 80, fit)){
+            xifrar_frase(fileString, matrix, newString);
+            fprintf(fitW,"%s",newString);
+            fprintf(fitW,"\n");
+        }
+        printf("\nArxiu xifrat!");
         fclose(fit);
-       // fclose(fitW);
+        fclose(fitW);
+        /*
+             while(fgets(fileString, 80, fit)){
+                   
+                    xifrar_frase(fileString, matrix, newString);
+                    //fprintf(fit,"%s\n",newString);
+                    printf("\n%s", newString);
+                    fileLineCounter++;
+                }
+     */
     }
     break;  
    case 4:
