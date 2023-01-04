@@ -115,7 +115,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
 }
 
 void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[]){
-    int n, m, z = 0, u = 1, j = 0, lenghtOfDecript = 0;
+    int n, m, z = 0, u = 1, j = 0;
     bool triggerRow, triggerColumn, secondValue = false;
     while (z < obtindreMida(textXifrat)){
         triggerRow = false;
@@ -144,7 +144,7 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
         }while(!triggerColumn);
 
         //demo decript
-        //printf("\n%c", matrix[n][m]);
+        printf("\n%c", matrix[n][m]);
 
         do{
             //esperaré a la segona comprovació ja que no he de fer tantes repeticions
@@ -162,45 +162,42 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
     frase_desxifrada[j] = '\0';
 }
 
-void xifrar_arxiu(FILE * fit, char matrix[][7]){
-            int fileStringCounter, fileCounter = 0;
+void xifrar_arxiu(FILE * fit, FILE * enceiptedFile, char matrix[][7]){
             char fileString[80], newString[160];
-            FILE * fitW;
-            fitW = fopen("Text_a_xifrar.txt", "w");
-            if(comprovar_arxiu(fitW)){
-                while(fgets(fileString, 80, fit)){
-                    printf("\n%s", fileString);
-                    xifrar_frase(fileString, matrix, newString);
-                    //fprintf(fitW,"%s\n",newString);
-                }
-            }else{
-                printf("\nNo s'ha pogut obrir l'arxiu");
+            while(fgets(fileString, 80, fit)){
+                xifrar_frase(fileString, matrix, newString);
+                fprintf(enceiptedFile,"%s",newString);
+                fprintf(enceiptedFile,"\n");
             }
-            
+            printf("\nArxiu xifrat!");    
+}
+
+void desxifrar_arxiu(FILE * fit, FILE * enceiptedFile, char matrix[][7]){
+            char newString[80], fileString[160];
+            while(fgets(fileString, 160, fit)){
+            printf("\nFileString decript %s", fileString);
+            desxifrar_frase(fileString, matrix, newString);
+             printf("\nDecript %s", newString);
+                fprintf(enceiptedFile,"%s",fileString);
+                fprintf(enceiptedFile,"\n");
+            }
+            printf("\nArxiu desxifrat!");    
 }
 
 
 
 
 int main() {
-    FILE * fit, * fitW;;
-    int opcio, fileStringCounter, fileCounter = 0, fileLineCounter = 0, fileLineJumper = 0, readCounter = 0, writeCounter = 0;
+    FILE * fit, * enceiptedFile, * decriptFile;
+    int opcio;
     char message[80];
-    char filePosition;
     char encriptedMessage[160];
     char fileString[80], newString[160];
     char matrix[7][7] = {};
     //un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
     char frase_xifrada[160];
     char frase_desxifrada[80];
-    //boleà per comprovar que l'arxiu s'ha trobat
-    bool fileExists = false;
-    //comprovació de l'arxiu
-    fit = fopen("Text_a_xifrar.txt", "r");
-    if(comprovar_arxiu(fit)){
-        fileExists = true;
-    }
-    fclose(fit);
+   
     construir_matriu_xifrat(matrix);
 
    printf("\n\n---Pràctica de Xifrat---\n");
@@ -241,47 +238,39 @@ int main() {
         printf("\nText desencriptat: %s", frase_desxifrada);
     break;
    case 3:
-    //encriptar un text inclòs en un arxiu de text
-    if(fileExists){
-        fit = fopen("Text_a_xifrar.txt", "r");
-        fitW = fopen("Text_ja_xifrar.txt", "w");
-        while(fgets(fileString, 80, fit)){
-            xifrar_frase(fileString, matrix, newString);
-            fprintf(fitW,"%s",newString);
-            fprintf(fitW,"\n");
-        }
-        printf("\nArxiu xifrat!");
-        fclose(fit);
-        fclose(fitW);
-        /*
-             while(fgets(fileString, 80, fit)){
-                   
-                    xifrar_frase(fileString, matrix, newString);
-                    //fprintf(fit,"%s\n",newString);
-                    printf("\n%s", newString);
-                    fileLineCounter++;
-                }
-     */
+    //comprovació de l'arxiu
+    fit = fopen("Text_a_xifrar.txt", "r");
+    if(comprovar_arxiu(fit)){
+        enceiptedFile = fopen("Text_xifrat.txt", "w");
+        xifrar_arxiu(fit, enceiptedFile, matrix);    //funció que executa el xifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
+        fclose(enceiptedFile);
+    }else{
+        printf("\nNo s'ha pogut trobar l'arxiu");
     }
+    fclose(fit);
+       
     break;  
    case 4:
     //desencriptar un text inclòs en un arxiu de text
-     if(fileExists){
-        /*
-        fit = fopen("Text_a_xifrar.txt", "r");
-        //xifrar_arxiu(fit, fitW, matrix);
-        fclose(fit);
-        desxifrar_frase(encriptedMessage, matrix, frase_desxifrada);
-        fitW = fopen("Text_a_xifrar.txt", "w");
-        fprintf(fitW,"%s",frase_desxifrada);
-        fclose(fitW);
-        printf("\nText desencriptat: %s", frase_desxifrada);
-        */
+    //comprovació de l'arxiu
+    fit = fopen("Text_xifrat.txt", "r");
+    if(comprovar_arxiu(fit)){
+        printf("\naixó es el de la comprovació");
+        enceiptedFile = fopen("Text_desxifrat.txt", "w");
+        printf("\ndocument esciptura obert");
+        if(enceiptedFile != NULL){
+            printf("\nNo es null");
+            desxifrar_arxiu(fit, enceiptedFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
+
+            fclose(enceiptedFile);
+        }else{
+            printf("\nNo s'ha pogut trobar l'arxiu de sortida de dades");
+        }
+        
     }else{
-        printf("\nS'ha tancat l'arxiu");
+        printf("\nNo s'ha pogut trobar l'arxiu d'entrada de dades");
     }
-    break;
-   default:
+    fclose(fit);
     break;
    }
    }
