@@ -117,7 +117,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
 void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[]){
     int n, m, z = 0, u = 1, j = 0;
     bool triggerRow, triggerColumn, secondValue = false;
-    while (z < obtindreMida(textXifrat)){
+    while (z < (obtindreMida(textXifrat)-1)){ 
         triggerRow = false;
         triggerColumn = false;
         n = 0;
@@ -144,7 +144,7 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
         }while(!triggerColumn);
 
         //demo decript
-        printf("\n%c", matrix[n][m]);
+        //printf("\n%c", matrix[n][m]);
 
         do{
             //esperaré a la segona comprovació ja que no he de fer tantes repeticions
@@ -162,24 +162,22 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
     frase_desxifrada[j] = '\0';
 }
 
-void xifrar_arxiu(FILE * fit, FILE * enceiptedFile, char matrix[][7]){
+void xifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
             char fileString[80], newString[160];
             while(fgets(fileString, 80, fit)){
                 xifrar_frase(fileString, matrix, newString);
-                fprintf(enceiptedFile,"%s",newString);
-                fprintf(enceiptedFile,"\n");
+                fprintf(encriptedFile,"%s",newString);
+                fprintf(encriptedFile,"\n");
             }
             printf("\nArxiu xifrat!");    
 }
 
-void desxifrar_arxiu(FILE * fit, FILE * enceiptedFile, char matrix[][7]){
+void desxifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
             char newString[80], fileString[160];
             while(fgets(fileString, 160, fit)){
-            printf("\nFileString decript %s", fileString);
             desxifrar_frase(fileString, matrix, newString);
-             printf("\nDecript %s", newString);
-                fprintf(enceiptedFile,"%s",fileString);
-                fprintf(enceiptedFile,"\n");
+            fprintf(encriptedFile,"%s",fileString);
+            fprintf(encriptedFile,"\n");
             }
             printf("\nArxiu desxifrat!");    
 }
@@ -188,7 +186,7 @@ void desxifrar_arxiu(FILE * fit, FILE * enceiptedFile, char matrix[][7]){
 
 
 int main() {
-    FILE * fit, * enceiptedFile, * decriptFile;
+    FILE * fit, * encriptedFile, * decriptFile;
     int opcio;
     char message[80];
     char encriptedMessage[160];
@@ -241,9 +239,10 @@ int main() {
     //comprovació de l'arxiu
     fit = fopen("Text_a_xifrar.txt", "r");
     if(comprovar_arxiu(fit)){
-        enceiptedFile = fopen("Text_xifrat.txt", "w");
-        xifrar_arxiu(fit, enceiptedFile, matrix);    //funció que executa el xifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
-        fclose(enceiptedFile);
+        encriptedFile = fopen("Text_xifrat.txt", "w");
+
+        xifrar_arxiu(fit, encriptedFile, matrix);    //funció que executa el xifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
+        fclose(encriptedFile);
     }else{
         printf("\nNo s'ha pogut trobar l'arxiu");
     }
@@ -256,13 +255,11 @@ int main() {
     fit = fopen("Text_xifrat.txt", "r");
     if(comprovar_arxiu(fit)){
         printf("\naixó es el de la comprovació");
-        enceiptedFile = fopen("Text_desxifrat.txt", "w");
+        encriptedFile = fopen("Text_desxifrat.txt", "w");
         printf("\ndocument esciptura obert");
-        if(enceiptedFile != NULL){
-            printf("\nNo es null");
-            desxifrar_arxiu(fit, enceiptedFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
-
-            fclose(enceiptedFile);
+        if(encriptedFile != NULL){
+            desxifrar_arxiu(fit, encriptedFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
+            fclose(encriptedFile);
         }else{
             printf("\nNo s'ha pogut trobar l'arxiu de sortida de dades");
         }
