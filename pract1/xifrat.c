@@ -10,10 +10,6 @@ int obtindreMida(char string[]){
     return i;
 }
 
-void lliurar_buffer(){
-        while ((getchar()) != '\n');
-}
-
 bool comprovar_arxiu(FILE * fit){
     bool status;
     if(fit != NULL){
@@ -202,7 +198,7 @@ int main() {
    while(opcio != 5){
    do{
         printf("\nTria una opció insertant el seu numero: \n");
-        //opcions
+        //opcions per seleccionar
         printf("\n1.- Encriptar un text introduit per teclat");
         printf("\n2.- Desencriptar un text introduit per teclat");
         printf("\n3.- Encriptar un text inclòs en un arxiu de text");
@@ -210,6 +206,7 @@ int main() {
         printf("\n5.- Sortir\n\n");
         printf("\nSeleccionar opció: ");
         scanf("%d", &opcio);
+         fflush(stdin);
    }while(opcio < 1 || opcio > 5);
 
    switch (opcio)
@@ -219,10 +216,8 @@ int main() {
         printf("\nHas seleccionat la opció (1) - Encriptar un text introduit per teclat");
         printf("\nIntrodueix un text a encriptar: ");
         //utilitzo expressions regulars per poder obtindre totes les dades de forma correcta (strings amb espais, o salts de linea.)
-        //funció creada per lliurar el buffer de la entrada de dades (fflush no funciona correctament en tots el casos).
-        lliurar_buffer();
-        scanf("%[^\t\n]",message);
-        //llegir_variable_espais(message);
+        //per descartar els espais vuids utilitzo el primer espai a l'expressió
+        scanf(" %[^\t\n]",message);
         printf("\nHas introduit el text: '%s'", message);
         xifrar_frase(message, matrix, frase_xifrada);
         printf("\nText xifrat: '%s'", frase_xifrada);
@@ -236,6 +231,7 @@ int main() {
         printf("\nText desencriptat: %s", frase_desxifrada);
     break;
    case 3:
+   //encriptar un text inclòs en un arxiu
     //comprovació de l'arxiu
     fit = fopen("Text_a_xifrar.txt", "r");
     if(comprovar_arxiu(fit)){
@@ -255,11 +251,11 @@ int main() {
     fit = fopen("Text_xifrat.txt", "r");
     if(comprovar_arxiu(fit)){
         printf("\naixó es el de la comprovació");
-        encriptedFile = fopen("Text_desxifrat.txt", "w");
+        decriptFile = fopen("Text_desxifrat.txt", "w");
         printf("\ndocument esciptura obert");
-        if(encriptedFile != NULL){
-            desxifrar_arxiu(fit, encriptedFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
-            fclose(encriptedFile);
+        if(decriptFile != NULL){
+            desxifrar_arxiu(fit, decriptFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
+            fclose(decriptFile);
         }else{
             printf("\nNo s'ha pogut trobar l'arxiu de sortida de dades");
         }
