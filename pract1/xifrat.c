@@ -197,7 +197,6 @@ int main() {
         printf("\n5.- Sortir\n\n");
         printf("\nSeleccionar opció: ");
         scanf("%d", &opcio);
-         fflush(stdin);
    }while(opcio < 1 || opcio > 5);
 
    switch (opcio)
