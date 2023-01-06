@@ -20,16 +20,17 @@ bool comprovar_arxiu(FILE * fit){
     return status;
 }
 
-char minuscula_a_majuscula(char message[]){
+void minuscula_a_majuscula(char message[]){
     int size = obtindreMida(message);
     int a = 0;
     while(a < size){
-        if(("%d",message[a]) >= 97 && ("%d",message[a]) <= 122 ){
+        if((message[a]) >= 97 && (message[a]) <= 122 ){
               message[a] = message[a] - 32;
         }
         a++;
     }
 }
+
 void construir_matriu_xifrat(char newMatrix[][7]){
     int a, b;
     //caracters que s'utilitzen per poder crear l'encriptat (fila de dalt)
@@ -55,7 +56,7 @@ void construir_matriu_xifrat(char newMatrix[][7]){
         {'M', 'S', 'T', 'U', 'V', 'W', 'X'},
         {'A', 'Y', 'Z', ' ', '1', '2', '3'},
         {'L', '4', '5', '6', '7', '8', '9'}};
-    
+
     */
     for(a = 0; a < 7; a++){
         for(b = 0; b < 7; b++){
@@ -71,8 +72,8 @@ void construir_matriu_xifrat(char newMatrix[][7]){
                 }
             }
         }
-    }   
-    
+    }
+
 }
 
 void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
@@ -80,7 +81,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
     bool firtsValue = false;
     //comprovació si totes les lletres son en majuscula per poder fer la transformació, en el cas de ser minuscula la transforma a majuscula
     minuscula_a_majuscula(text);
-    while(k < (obtindreMida(text))){  
+    while(k < (obtindreMida(text))){
         for(i = 0; i < 7; i++){
             for(j = 0; j < 7; j++){
                 //la primera i fila [0] que referencia "i" i "j" és una base, no ha de se part de la clau de xifrat
@@ -113,7 +114,7 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
 void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[]){
     int n, m, z = 0, u = 1, j = 0;
     bool triggerRow, triggerColumn, secondValue = false;
-    while (z < (obtindreMida(textXifrat)-1)){ 
+    while (z < (obtindreMida(textXifrat)-1)){
         triggerRow = false;
         triggerColumn = false;
         n = 0;
@@ -128,7 +129,7 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
                 n++;
             }
         }while(!triggerRow);
-        
+
         do{
             if(textXifrat[z] == matrix[0][m]){
                 //l'objectiu es guardar el contador de "m" ja que té la posició n x m de la matriu
@@ -152,7 +153,7 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
                 secondValue = false;
                 u = 0;
                 j++;
-            } 
+            }
         }while(!secondValue && u == 0);
     }
     frase_desxifrada[j] = '\0';
@@ -165,17 +166,17 @@ void xifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
                 fprintf(encriptedFile,"%s",newString);
                 fprintf(encriptedFile,"\n");
             }
-            printf("\nArxiu xifrat!");    
+            printf("\nArxiu xifrat!");
 }
 
-void desxifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
+void desxifrar_arxiu(FILE * fit, FILE * decriptFile, char matrix[][7]){
             char newString[80], fileString[160];
             while(fgets(fileString, 160, fit)){
             desxifrar_frase(fileString, matrix, newString);
-            fprintf(encriptedFile,"%s",fileString);
-            fprintf(encriptedFile,"\n");
+            fprintf(decriptFile,"%s",newString);
+            fprintf(decriptFile,"\n");
             }
-            printf("\nArxiu desxifrat!");    
+            printf("\nArxiu desxifrat!");
 }
 
 
@@ -184,14 +185,8 @@ void desxifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
 int main() {
     FILE * fit, * encriptedFile, * decriptFile;
     int opcio;
-    char message[80];
-    char encriptedMessage[160];
-    char fileString[80], newString[160];
-    char matrix[7][7] = {};
-    //un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
-    char frase_xifrada[160];
-    char frase_desxifrada[80];
-   
+    //Dimensió: un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
+    char message[80], encriptedMessage[160], matrix[7][7] = {}, frase_xifrada[160], frase_desxifrada[80];
     construir_matriu_xifrat(matrix);
 
    printf("\n\n---Pràctica de Xifrat---\n");
@@ -232,36 +227,28 @@ int main() {
     break;
    case 3:
    //encriptar un text inclòs en un arxiu
-    //comprovació de l'arxiu
-    fit = fopen("Text_a_xifrar.txt", "r");
+   //comprovació de l'arxiu
+   fit = fopen("Text_a_xifrar.txt", "r");
     if(comprovar_arxiu(fit)){
-        encriptedFile = fopen("Text_xifrat.txt", "w");
-
+        encriptedFile = fopen("Text_xifrat.txt", "w");  //en el cas de no existir l'arxiu ho creará
         xifrar_arxiu(fit, encriptedFile, matrix);    //funció que executa el xifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
         fclose(encriptedFile);
     }else{
-        printf("\nNo s'ha pogut trobar l'arxiu");
+        printf("\nNo s'ha pogut trobar l'arxiu per xifrar");
     }
     fclose(fit);
-       
-    break;  
+
+    break;
    case 4:
     //desencriptar un text inclòs en un arxiu de text
     //comprovació de l'arxiu
     fit = fopen("Text_xifrat.txt", "r");
     if(comprovar_arxiu(fit)){
-        printf("\naixó es el de la comprovació");
-        decriptFile = fopen("Text_desxifrat.txt", "w");
-        printf("\ndocument esciptura obert");
-        if(decriptFile != NULL){
-            desxifrar_arxiu(fit, decriptFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
-            fclose(decriptFile);
-        }else{
-            printf("\nNo s'ha pogut trobar l'arxiu de sortida de dades");
-        }
-        
+        decriptFile = fopen("Text_desxifrat.txt", "w"); //en el cas de no existir l'arxiu ho creará
+        desxifrar_arxiu(fit, decriptFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
+        fclose(decriptFile);
     }else{
-        printf("\nNo s'ha pogut trobar l'arxiu d'entrada de dades");
+        printf("\nNo s'ha pogut trobar l'arxiu de text xifrat");
     }
     fclose(fit);
     break;
