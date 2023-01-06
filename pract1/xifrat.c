@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#define MAX_TEXT 80
+#define MAX_ENCRIPT 160
 
 int obtindreMida(char string[]){
     int i = 0;
@@ -158,7 +160,7 @@ void desxifrar_frase(char textXifrat[], char matrix[][7], char frase_desxifrada[
 }
 
 void xifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
-            char fileString[80], newString[160];
+            char fileString[MAX_TEXT], newString[MAX_ENCRIPT];
             while(fgets(fileString, 80, fit)){
                 xifrar_frase(fileString, matrix, newString);
                 fprintf(encriptedFile,"%s\n",newString);
@@ -167,7 +169,7 @@ void xifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
 }
 
 void desxifrar_arxiu(FILE * fit, FILE * decriptFile, char matrix[][7]){
-            char newString[80], fileString[160];
+            char newString[MAX_TEXT], fileString[MAX_ENCRIPT];
             while(fgets(fileString, 160, fit)){
             desxifrar_frase(fileString, matrix, newString);
             fprintf(decriptFile,"%s\n",newString);
@@ -182,7 +184,7 @@ int main() {
     FILE * fit, * encriptedFile, * decriptFile;
     int opcio;
     //Dimensió: un text encriptat d'aquesta forma equival a el doble de la seva mida, ja que per cada lletra crea 2 caracters
-    char message[80], encriptedMessage[160], matrix[7][7] = {}, frase_xifrada[160], frase_desxifrada[80];
+    char message[MAX_TEXT], encriptedMessage[MAX_ENCRIPT], matrix[7][7] = {}, frase_xifrada[MAX_ENCRIPT], frase_desxifrada[MAX_TEXT];
     construir_matriu_xifrat(matrix);
 
    printf("\n\n---Pràctica de Xifrat---\n");
