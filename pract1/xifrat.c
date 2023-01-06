@@ -165,7 +165,6 @@ void xifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
                 xifrar_frase(fileString, matrix, newString);
                 fprintf(encriptedFile,"%s\n",newString);
             }
-            printf("\nArxiu xifrat!");
 }
 
 void desxifrar_arxiu(FILE * fit, FILE * decriptFile, char matrix[][7]){
@@ -174,7 +173,6 @@ void desxifrar_arxiu(FILE * fit, FILE * decriptFile, char matrix[][7]){
             desxifrar_frase(fileString, matrix, newString);
             fprintf(decriptFile,"%s\n",newString);
             }
-            printf("\nArxiu desxifrat!");
 }
 
 
@@ -233,6 +231,7 @@ int main() {
         encriptedFile = fopen("Text_xifrat.txt", "w");  //en el cas de no existir l'arxiu ho creará
         xifrar_arxiu(fit, encriptedFile, matrix);    //funció que executa el xifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
         fclose(encriptedFile);
+        printf("\nArxiu xifrat!");
     }else{
         printf("\nNo s'ha pogut trobar l'arxiu per xifrar");
     }
@@ -248,6 +247,7 @@ int main() {
         decriptFile = fopen("Text_desxifrat.txt", "w"); //en el cas de no existir l'arxiu ho creará
         desxifrar_arxiu(fit, decriptFile, matrix);    //funció que executa el desxifrat de l'arxiu frase per frase, utilitzant la funció principal de xifrar_frase
         fclose(decriptFile);
+        printf("\nArxiu desxifrat!");
     }else{
         printf("\nNo s'ha pogut trobar l'arxiu de text xifrat");
     }
