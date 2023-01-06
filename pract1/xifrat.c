@@ -78,7 +78,6 @@ void construir_matriu_xifrat(char newMatrix[][7]){
 
 void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
     int i, j, k = 0, l = 0, o = 0;
-    bool firtsValue = false;
     //comprovació si totes les lletres son en majuscula per poder fer la transformació, en el cas de ser minuscula la transforma a majuscula
     minuscula_a_majuscula(text);
     while(k < (obtindreMida(text))){
@@ -95,10 +94,9 @@ void xifrar_frase(char text[], char matrix[][7], char frase_xifrada[]){
                                 l++;
                             }else{
                                 frase_xifrada[(o+l)] = matrix[0][j];
-                                firtsValue = false; //reset variable
-                                l = 0;
+                                l = 0; //reset variable
                             }
-                        }while(!firtsValue && l > 0);
+                        }while(l > 0);
                         o = o + 2;
                     }
                 }
@@ -163,8 +161,7 @@ void xifrar_arxiu(FILE * fit, FILE * encriptedFile, char matrix[][7]){
             char fileString[80], newString[160];
             while(fgets(fileString, 80, fit)){
                 xifrar_frase(fileString, matrix, newString);
-                fprintf(encriptedFile,"%s",newString);
-                fprintf(encriptedFile,"\n");
+                fprintf(encriptedFile,"%s\n",newString);
             }
             printf("\nArxiu xifrat!");
 }
@@ -173,8 +170,7 @@ void desxifrar_arxiu(FILE * fit, FILE * decriptFile, char matrix[][7]){
             char newString[80], fileString[160];
             while(fgets(fileString, 160, fit)){
             desxifrar_frase(fileString, matrix, newString);
-            fprintf(decriptFile,"%s",newString);
-            fprintf(decriptFile,"\n");
+            fprintf(decriptFile,"%s\n",newString);
             }
             printf("\nArxiu desxifrat!");
 }
