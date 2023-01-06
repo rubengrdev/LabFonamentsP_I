@@ -217,6 +217,7 @@ int main() {
     break;
    case 2:
     //desencriptar un text introduit per teclat
+        printf("\nHas seleccionat la opció (2) - Desxifrar un text introduit per teclat");
         printf("\nIntrodueix un text per desencriptar: ");
         scanf("%s",encriptedMessage);
         printf("\nHas introduit el següent text encriptat: '%s'", encriptedMessage);
@@ -225,6 +226,7 @@ int main() {
     break;
    case 3:
    //encriptar un text inclòs en un arxiu
+    printf("\nHas seleccionat la opció (3) - Encriptar un text introduit a un arxiu");
    //comprovació de l'arxiu
    fit = fopen("Text_a_xifrar.txt", "r");
     if(comprovar_arxiu(fit)){
@@ -239,6 +241,7 @@ int main() {
     break;
    case 4:
     //desencriptar un text inclòs en un arxiu de text
+    printf("\nHas seleccionat la opció (4) - Desxifrar un text introduit a un arxiu");
     //comprovació de l'arxiu
     fit = fopen("Text_xifrat.txt", "r");
     if(comprovar_arxiu(fit)){
